@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -18,22 +17,29 @@ const NAV_ITEMS = [
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
+  const isLoginPage = pathname === "/admin/login";
+
   useEffect(() => {
-    if (!loading && !isAdmin) {
+    if (!loading && !isAdmin && !isLoginPage) {
       router.replace("/admin/login");
     }
-  }, [loading, isAdmin, router]);
+  }, [loading, isAdmin, router, isLoginPage]);
+
+  // Always render login page directly — no auth wrapper
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-bg-primary flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-accent-cyan border-t-transparent rounded-full animate-spin" />
-          <p className="font-mono text-xs text-text-muted">Authenticating...</p>
+      <div style={{ minHeight: "100vh", background: "#101014", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
+          <div style={{ width: "32px", height: "32px", border: "2px solid #00E8FF", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
+          <p style={{ fontFamily: "monospace", fontSize: "12px", color: "#666" }}>Authenticating...</p>
         </div>
       </div>
     );
@@ -45,15 +51,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen bg-bg-primary flex">
       {/* Sidebar */}
       <aside className="w-60 shrink-0 bg-bg-card border-r border-border flex flex-col">
-        {/* Logo */}
         <div className="px-5 py-5 border-b border-border">
           <p className="font-display font-bold text-base">
             <span className="text-accent-cyan">nishan</span>creates
           </p>
           <p className="font-mono text-xs text-text-muted mt-0.5">Admin Panel</p>
         </div>
-
-        {/* Nav */}
         <nav className="flex-1 p-3 flex flex-col gap-1">
           {NAV_ITEMS.map((item) => {
             const active = pathname === item.href;
@@ -73,13 +76,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             );
           })}
         </nav>
-
-        {/* Footer */}
         <div className="p-3 border-t border-border">
-          <Link
-            href="/"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-btn font-mono text-xs text-text-muted hover:text-text-primary transition-all"
-          >
+          <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-btn font-mono text-xs text-text-muted hover:text-text-primary transition-all">
             ← View site
           </Link>
           <button
@@ -90,8 +88,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </button>
         </div>
       </aside>
-
-      {/* Main content */}
       <main className="flex-1 overflow-auto">
         <motion.div
           key={pathname}
