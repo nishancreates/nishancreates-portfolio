@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useGlobalConfig } from "@/context/GlobalContext";
 import { generateContactLink } from "@/lib/whatsapp";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { MeshGradientBackground } from "@/components/ui/Backgrounds";
 
 export default function ContactPage() {
   const { siteConfig, contactConfig } = useGlobalConfig();
@@ -18,28 +19,24 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-20 max-w-6xl mx-auto px-6">
-      {/* Header */}
+      <MeshGradientBackground />
+
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="mb-16 text-center"
       >
-        <p className="font-mono text-xs text-accent-cyan tracking-widest uppercase mb-3">
-          Contact
-        </p>
+        <p className="font-mono text-xs text-accent-cyan tracking-widest uppercase mb-3">Contact</p>
         <h1 className="font-display text-4xl sm:text-5xl font-bold text-text-primary mb-4">
           Let&apos;s build something.
         </h1>
         <p className="text-text-secondary max-w-lg mx-auto text-lg">
-          Have a project in mind? The fastest way to reach me is WhatsApp.
-          I respond within a few hours.
+          Have a project in mind? The fastest way to reach me is WhatsApp. I respond within a few hours.
         </p>
       </motion.div>
 
-      {/* Contact cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-16">
-        {/* WhatsApp — primary */}
         <motion.a
           {...fadeUp(0.1)}
           href={waLink}
@@ -52,12 +49,8 @@ export default function ContactPage() {
             <div className="w-12 h-12 rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 flex items-center justify-center mb-4">
               <WhatsAppIcon className="text-[#25D366]" />
             </div>
-            <p className="font-mono text-xs text-[#25D366] mb-1 uppercase tracking-wider">
-              Fastest response
-            </p>
-            <h3 className="font-display text-xl font-bold text-text-primary mb-2">
-              WhatsApp
-            </h3>
+            <p className="font-mono text-xs text-[#25D366] mb-1 uppercase tracking-wider">Fastest response</p>
+            <h3 className="font-display text-xl font-bold text-text-primary mb-2">WhatsApp</h3>
             <p className="text-text-secondary text-sm mb-4">
               Send me a message directly. I&apos;ll respond within a few hours with availability and pricing.
             </p>
@@ -67,7 +60,6 @@ export default function ContactPage() {
           </div>
         </motion.a>
 
-        {/* Email — secondary */}
         <motion.a
           {...fadeUp(0.2)}
           href={`mailto:${contactConfig.email}`}
@@ -78,12 +70,8 @@ export default function ContactPage() {
             <div className="w-12 h-12 rounded-xl bg-accent-cyan/10 border border-accent-cyan/20 flex items-center justify-center mb-4">
               <MailIcon className="text-accent-cyan" />
             </div>
-            <p className="font-mono text-xs text-accent-cyan mb-1 uppercase tracking-wider">
-              For detailed briefs
-            </p>
-            <h3 className="font-display text-xl font-bold text-text-primary mb-2">
-              Email
-            </h3>
+            <p className="font-mono text-xs text-accent-cyan mb-1 uppercase tracking-wider">For detailed briefs</p>
+            <h3 className="font-display text-xl font-bold text-text-primary mb-2">Email</h3>
             <p className="text-text-secondary text-sm mb-4">
               Prefer email? Send me your project details and I&apos;ll get back to you.
             </p>
@@ -94,49 +82,29 @@ export default function ContactPage() {
         </motion.a>
       </div>
 
-      {/* Social links */}
-      <motion.div
-        {...fadeUp(0.3)}
-        className="flex justify-center gap-4 mb-16"
-      >
-        <a
-          href={contactConfig.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border rounded-btn font-mono text-sm text-text-secondary hover:text-text-primary hover:border-border-strong transition-all"
-        >
+      <motion.div {...fadeUp(0.3)} className="flex justify-center gap-4 mb-16">
+        <a href={contactConfig.github} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border rounded-btn font-mono text-sm text-text-secondary hover:text-text-primary hover:border-border-strong transition-all">
           <GitHubIcon /> GitHub
         </a>
-        <a
-          href={contactConfig.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border rounded-btn font-mono text-sm text-text-secondary hover:text-[#0A66C2] hover:border-[#0A66C2]/40 transition-all"
-        >
+        <a href={contactConfig.linkedin} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border rounded-btn font-mono text-sm text-text-secondary hover:text-[#0A66C2] hover:border-[#0A66C2]/40 transition-all">
           <LinkedInIcon /> LinkedIn
         </a>
       </motion.div>
 
-      {/* Brief form CTA */}
       <motion.div
         {...fadeUp(0.4)}
         className="relative overflow-hidden bg-bg-card border border-accent-cyan/20 rounded-card p-10 text-center max-w-2xl mx-auto"
       >
         <div className="absolute inset-0 bg-cyan-gradient opacity-30 pointer-events-none" />
         <div className="relative">
-          <p className="font-mono text-xs text-accent-cyan tracking-widest uppercase mb-3">
-            Know what you want?
-          </p>
-          <h2 className="font-display text-2xl font-bold text-text-primary mb-3">
-            Fill out the project brief
-          </h2>
+          <p className="font-mono text-xs text-accent-cyan tracking-widest uppercase mb-3">Know what you want?</p>
+          <h2 className="font-display text-2xl font-bold text-text-primary mb-3">Fill out the project brief</h2>
           <p className="text-text-secondary text-sm mb-6 max-w-md mx-auto">
-            Answer a few questions about your business and what you need.
-            Takes 3 minutes. I&apos;ll come back with a custom quote.
+            Answer a few questions about your business and what you need. Takes 3 minutes. I&apos;ll come back with a custom quote.
           </p>
-          <MagneticButton variant="primary" href="/brief">
-            Start the brief →
-          </MagneticButton>
+          <MagneticButton variant="primary" href="/brief">Start the brief →</MagneticButton>
         </div>
       </motion.div>
     </div>

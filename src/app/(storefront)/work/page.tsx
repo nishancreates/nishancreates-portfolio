@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { db } from "@/lib/firebase";
 import type { Project } from "@/types";
 import ProjectCard from "@/components/projects/ProjectCard";
+import { DotGridBackground } from "@/components/ui/Backgrounds";
 
 const FALLBACK_PROJECTS: Project[] = [
   {
@@ -105,7 +106,6 @@ const FALLBACK_PROJECTS: Project[] = [
   },
 ];
 
-
 export default function WorkPage() {
   const [projects, setProjects] = useState<Project[]>(FALLBACK_PROJECTS);
   const [filter, setFilter] = useState("all");
@@ -126,7 +126,8 @@ export default function WorkPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-20 max-w-6xl mx-auto px-6">
-      {/* Header */}
+      <DotGridBackground />
+
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -145,7 +146,6 @@ export default function WorkPage() {
         </p>
       </motion.div>
 
-      {/* Filter tabs */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -167,7 +167,6 @@ export default function WorkPage() {
         ))}
       </motion.div>
 
-      {/* Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filtered.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />
