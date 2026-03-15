@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,8 +10,9 @@ import { useGlobalConfig } from "@/context/GlobalContext";
 import { generateStartProjectLink } from "@/lib/whatsapp";
 
 export default function HeroSection() {
-  const { siteConfig, contactConfig } = useGlobalConfig();
+  const { siteConfig } = useGlobalConfig();
   const waLink = generateStartProjectLink();
+  const [flipped, setFlipped] = useState(false);
 
   const fadeUp = (delay: number) => ({
     initial: { opacity: 0, y: 24 },
@@ -20,11 +22,24 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background grid */}
-      <div className="absolute inset-0 bg-grid bg-grid opacity-100" />
 
-      {/* Cyan glow top-left */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-cyan-gradient pointer-events-none" />
+      {/* Moving gradient background */}
+      <div className="absolute inset-0 -z-10">
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: [
+              "radial-gradient(ellipse at 20% 50%, rgba(0,232,255,0.07) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(0,232,255,0.04) 0%, transparent 50%), #101014",
+              "radial-gradient(ellipse at 60% 80%, rgba(0,232,255,0.07) 0%, transparent 60%), radial-gradient(ellipse at 20% 30%, rgba(0,232,255,0.04) 0%, transparent 50%), #101014",
+              "radial-gradient(ellipse at 80% 30%, rgba(0,232,255,0.07) 0%, transparent 60%), radial-gradient(ellipse at 40% 70%, rgba(0,232,255,0.04) 0%, transparent 50%), #101014",
+              "radial-gradient(ellipse at 20% 50%, rgba(0,232,255,0.07) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(0,232,255,0.04) 0%, transparent 50%), #101014",
+            ],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+        />
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 bg-grid opacity-30" />
+      </div>
 
       {/* Content */}
       <div className="relative max-w-6xl mx-auto px-6 pt-28 pb-20 w-full">
@@ -32,7 +47,6 @@ export default function HeroSection() {
 
           {/* Left — Text */}
           <div className="flex flex-col gap-6">
-            {/* Available badge */}
             {siteConfig.availableForWork && (
               <motion.div {...fadeUp(0.1)} className="flex items-center gap-2 w-fit">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse-slow" />
@@ -42,7 +56,6 @@ export default function HeroSection() {
               </motion.div>
             )}
 
-            {/* Typewriter headline */}
             <motion.h1
               {...fadeUp(0.2)}
               className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
@@ -50,7 +63,6 @@ export default function HeroSection() {
               <TypewriterHero lines={siteConfig.taglines} speed={45} pause={2200} />
             </motion.h1>
 
-            {/* Name + title */}
             <motion.div {...fadeUp(0.3)}>
               <p className="font-mono text-sm text-text-secondary mb-1">
                 — {siteConfig.name}
@@ -60,7 +72,6 @@ export default function HeroSection() {
               </p>
             </motion.div>
 
-            {/* CTAs */}
             <motion.div {...fadeUp(0.4)} className="flex flex-wrap gap-3 pt-2">
               <MagneticButton variant="primary" href="/work">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -80,41 +91,28 @@ export default function HeroSection() {
               </MagneticButton>
             </motion.div>
 
-            {/* Stats */}
             <motion.div
               {...fadeUp(0.5)}
               className="flex gap-8 pt-4 border-t border-border-subtle"
             >
               <div>
-                <p className="font-display text-3xl font-bold text-text-primary">
-                  {siteConfig.projectsCompleted}+
-                </p>
-                <p className="font-mono text-xs text-text-muted mt-1">
-                  Projects delivered
-                </p>
+                <p className="font-display text-3xl font-bold text-text-primary">{siteConfig.projectsCompleted}+</p>
+                <p className="font-mono text-xs text-text-muted mt-1">Projects delivered</p>
               </div>
               <div className="w-px bg-border-subtle" />
               <div>
-                <p className="font-display text-3xl font-bold text-text-primary">
-                  {siteConfig.yearsExperience}+
-                </p>
-                <p className="font-mono text-xs text-text-muted mt-1">
-                  Years building
-                </p>
+                <p className="font-display text-3xl font-bold text-text-primary">{siteConfig.yearsExperience}+</p>
+                <p className="font-mono text-xs text-text-muted mt-1">Years building</p>
               </div>
               <div className="w-px bg-border-subtle" />
               <div>
-                <p className="font-display text-3xl font-bold text-accent-cyan">
-                  NP
-                </p>
-                <p className="font-mono text-xs text-text-muted mt-1">
-                  Based in Nepal
-                </p>
+                <p className="font-display text-3xl font-bold text-accent-cyan">NP</p>
+                <p className="font-mono text-xs text-text-muted mt-1">Based in Nepal</p>
               </div>
             </motion.div>
           </div>
 
-          {/* Right — Profile image */}
+          {/* Right — Flippable profile image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -122,23 +120,60 @@ export default function HeroSection() {
             className="flex justify-center lg:justify-end"
           >
             <div className="relative">
-              {/* Glow behind image */}
+              {/* Glow */}
               <div className="absolute inset-0 rounded-2xl bg-accent-cyan/10 blur-2xl scale-110" />
 
-              {/* Image frame */}
-              <div className="relative w-72 h-72 sm:w-80 sm:h-80 rounded-2xl overflow-hidden border border-border-strong">
-                <Image
-                  src={siteConfig.profileImage}
-                  alt={siteConfig.name}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 to-transparent" />
+              {/* Flip container */}
+              <div
+                onClick={() => setFlipped(!flipped)}
+                className="relative w-72 h-72 sm:w-80 sm:h-80 cursor-pointer"
+                style={{ perspective: "1000px" }}
+                title="Click to flip"
+              >
+                <motion.div
+                  animate={{ rotateY: flipped ? 180 : 0 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ transformStyle: "preserve-3d", width: "100%", height: "100%", position: "relative" }}
+                >
+                  {/* Front — real photo */}
+                  <div
+                    style={{ backfaceVisibility: "hidden", position: "absolute", inset: 0 }}
+                    className="rounded-2xl overflow-hidden border border-border-strong"
+                  >
+                    <Image
+                      src={siteConfig.profileImage || "/profile.jpg"}
+                      alt={siteConfig.name}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 to-transparent" />
+                    {/* Flip hint */}
+                    <div className="absolute bottom-3 right-3 bg-bg-card/80 border border-border rounded-lg px-2 py-1">
+                      <p className="font-mono text-xs text-text-muted">click to flip ↺</p>
+                    </div>
+                  </div>
+
+                  {/* Back — manga avatar */}
+                  <div
+                    style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", position: "absolute", inset: 0 }}
+                    className="rounded-2xl overflow-hidden border border-accent-cyan/40"
+                  >
+                    <Image
+                      src="/profile.jpg"
+                      alt="manga avatar"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 to-transparent" />
+                    <div className="absolute bottom-3 right-3 bg-bg-card/80 border border-border rounded-lg px-2 py-1">
+                      <p className="font-mono text-xs text-accent-cyan">click to flip ↺</p>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
 
-              {/* Floating badge */}
+              {/* Floating badges */}
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -148,7 +183,6 @@ export default function HeroSection() {
                 <p className="font-display text-sm font-bold text-accent-cyan">Architect</p>
               </motion.div>
 
-              {/* Tech badge */}
               <motion.div
                 animate={{ y: [0, 6, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
