@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-space-mono: 'Space Mono', monospace;
+  --font-syne: 'Syne', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #101014;
+  color: #F0F0F2;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #101014;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 232, 255, 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 232, 255, 0.6);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 232, 255, 0.2);
+  color: #00E8FF;
+}
+
+/* Focus */
+:focus-visible {
+  outline: 1.5px solid rgba(0, 232, 255, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .font-display {
+    font-family: var(--font-syne);
+  }
+  .font-mono {
+    font-family: var(--font-space-mono);
+  }
+  .bg-grid {
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .glow-cyan {
+    box-shadow: 0 0 24px rgba(0,232,255,0.3);
+  }
+  .border-subtle {
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .card-base {
+    background: #1B1B1F;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+  }
+}
