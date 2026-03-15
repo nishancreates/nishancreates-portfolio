@@ -105,11 +105,11 @@ const FALLBACK_PROJECTS: Project[] = [
   },
 ];
 
-const CATEGORIES = ["all", ...Array.from(new Set(projects.map((p) => p.category)))];
 
 export default function WorkPage() {
   const [projects, setProjects] = useState<Project[]>(FALLBACK_PROJECTS);
   const [filter, setFilter] = useState("all");
+  const CATEGORIES = ["all", ...Array.from(new Set(projects.map((p) => p.category)))];
 
   useEffect(() => {
     const q = query(collection(db, "projects"), orderBy("order"));
