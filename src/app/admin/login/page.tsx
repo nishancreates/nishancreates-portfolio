@@ -1,23 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { motion } from "framer-motion";
 import { auth } from "@/lib/firebase";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { isAdmin, loading: authLoading } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!authLoading && isAdmin) router.replace("/admin/dashboard");
-  }, [isAdmin, authLoading, router]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -34,44 +27,33 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary flex items-center justify-center px-6">
-      {/* Background grid */}
-      <div className="absolute inset-0 bg-grid opacity-100 pointer-events-none" />
-      <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-gradient pointer-events-none" />
-
-      <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative w-full max-w-sm"
-      >
-        {/* Card */}
-        <div className="bg-bg-card border border-border rounded-card p-8">
-          {/* Logo */}
-          <div className="mb-8 text-center">
-            <p className="font-display font-bold text-2xl mb-1">
-              <span className="text-accent-cyan">nishan</span>creates
+    <div style={{ minHeight: "100vh", background: "#101014", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px" }}>
+      <div style={{ width: "100%", maxWidth: "360px" }}>
+        <div style={{ background: "#16181d", border: "1px solid #2a2d35", borderRadius: "16px", padding: "32px" }}>
+          <div style={{ textAlign: "center", marginBottom: "32px" }}>
+            <p style={{ fontFamily: "monospace", fontSize: "22px", fontWeight: "bold", color: "white", margin: 0 }}>
+              <span style={{ color: "#00E8FF" }}>nishan</span>creates
             </p>
-            <p className="font-mono text-xs text-text-muted">Admin access only</p>
+            <p style={{ fontFamily: "monospace", fontSize: "11px", color: "#666", marginTop: "4px" }}>Admin access only</p>
           </div>
 
-          <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <div>
-              <label className="block font-mono text-xs text-text-secondary mb-2 uppercase tracking-wider">
+              <label style={{ display: "block", fontFamily: "monospace", fontSize: "11px", color: "#999", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                 Email
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="nishanrokaya535@gmail.com"
+                placeholder="your@email.com"
                 required
-                className="w-full bg-bg-primary border border-border rounded-btn px-4 py-3 text-text-primary font-mono text-sm placeholder:text-text-muted focus:outline-none focus:border-accent-cyan/50 transition-colors"
+                style={{ width: "100%", background: "#101014", border: "1px solid #2a2d35", borderRadius: "8px", padding: "12px 16px", color: "white", fontFamily: "monospace", fontSize: "14px", boxSizing: "border-box", outline: "none" }}
               />
             </div>
 
             <div>
-              <label className="block font-mono text-xs text-text-secondary mb-2 uppercase tracking-wider">
+              <label style={{ display: "block", fontFamily: "monospace", fontSize: "11px", color: "#999", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                 Password
               </label>
               <input
@@ -80,12 +62,12 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full bg-bg-primary border border-border rounded-btn px-4 py-3 text-text-primary font-mono text-sm placeholder:text-text-muted focus:outline-none focus:border-accent-cyan/50 transition-colors"
+                style={{ width: "100%", background: "#101014", border: "1px solid #2a2d35", borderRadius: "8px", padding: "12px 16px", color: "white", fontFamily: "monospace", fontSize: "14px", boxSizing: "border-box", outline: "none" }}
               />
             </div>
 
             {error && (
-              <p className="font-mono text-xs text-red-400 bg-red-400/10 border border-red-400/20 rounded-btn px-3 py-2">
+              <p style={{ fontFamily: "monospace", fontSize: "12px", color: "#f87171", background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.2)", borderRadius: "8px", padding: "8px 12px", margin: 0 }}>
                 {error}
               </p>
             )}
@@ -93,24 +75,16 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-accent-cyan text-bg-primary font-mono text-sm font-bold rounded-btn hover:bg-accent-cyan-dim transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+              style={{ width: "100%", padding: "12px", background: "#00E8FF", color: "#101014", fontFamily: "monospace", fontSize: "14px", fontWeight: "bold", borderRadius: "8px", border: "none", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.6 : 1, marginTop: "8px" }}
             >
-              {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <span className="w-4 h-4 border-2 border-bg-primary border-t-transparent rounded-full animate-spin" />
-                  Signing in...
-                </span>
-              ) : (
-                "Sign in →"
-              )}
+              {loading ? "Signing in..." : "Sign in →"}
             </button>
           </form>
         </div>
-
-        <p className="text-center font-mono text-xs text-text-muted mt-4">
+        <p style={{ textAlign: "center", fontFamily: "monospace", fontSize: "11px", color: "#444", marginTop: "16px" }}>
           Not for public access.
         </p>
-      </motion.div>
+      </div>
     </div>
   );
 }
