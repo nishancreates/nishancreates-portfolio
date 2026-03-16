@@ -47,7 +47,7 @@ function MiniTypewriter({ lines, speed = 60, pause = 2000 }: { lines: string[]; 
   }, [charIdx, deleting, lineIdx, lines, speed, pause]);
 
   return (
-    <span className="font-mono text-xs" style={{ color: "rgba(160,200,255,0.7)" }}>
+    <span className="font-mono text-sm font-medium" style={{ color: "rgba(160,200,255,0.85)" }}>
       {text}<span className="animate-pulse" style={{ color: "#00e8ff" }}>|</span>
     </span>
   );
@@ -124,9 +124,9 @@ export default function HeroSection() {
           <motion.div {...fadeUp(0.3)} style={glass} className="p-5 flex flex-col gap-3">
             <p className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>Projects</p>
             <p className="font-display text-3xl font-bold text-white">{siteConfig.projectsCompleted}<span style={{ color: "#00e8ff" }}>+</span></p>
-            <div className="flex-1 flex items-end">
-              <MiniTypewriter lines={projectsTaglines} speed={55} pause={2200} />
-            </div>
+              <div className="mt-2">
+                          <MiniTypewriter lines={projectsTaglines} speed={55} pause={2200} />
+                          </div>
           </motion.div>
 
           <motion.div {...fadeUp(0.35)} style={glass} className="p-5 flex flex-col gap-3">
