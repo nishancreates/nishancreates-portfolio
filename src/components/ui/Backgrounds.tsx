@@ -71,8 +71,8 @@ export function NightSkyBackground({ accentHue = 200 }: NightSkyProps) {
       x: number; y: number; len: number; speed: number;
       a: number; alpha: number;
       constructor() {
-        this.x = Math.random() * canvas.width * 0.8;
-        this.y = Math.random() * canvas.height * 0.5;
+        this.x = Math.random() * (canvas?.width ?? 800) * 0.8;
+        this.y = Math.random() * (canvas?.height ?? 600) * 0.5;
         this.len = 60 + Math.random() * 100;
         this.speed = 9 + Math.random() * 5;
         this.a = Math.PI / 4 + Math.random() * 0.4;
