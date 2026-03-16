@@ -14,7 +14,10 @@ const NAV_ITEMS = [
   { label: "Skills", href: "/admin/skills", icon: "◎" },
   { label: "Leads", href: "/admin/leads", icon: "◉" },
   { label: "Contact Info", href: "/admin/contacts", icon: "◌" },
+  { label: "Gallery", href: "/admin/gallery", icon: "◫" },
+  { label: "Testimonials", href: "/admin/testimonials", icon: "◑" },
 ];
+
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { isAdmin, loading } = useAuth();
