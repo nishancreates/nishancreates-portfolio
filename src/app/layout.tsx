@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     description: "Full-Stack Architect & Business Solutions Developer",
     type: "website",
   },
+icons: {
+  icon: '/favicon.png',
+},
 };
 
 export default function RootLayout({

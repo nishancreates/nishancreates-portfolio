@@ -121,18 +121,20 @@ export default function HeroSection() {
             </h2>
           </motion.div>
 
-          <motion.div {...fadeUp(0.3)} style={glass} className="p-5 flex flex-col gap-3 min-h-[160px]">
+          <motion.div {...fadeUp(0.3)} style={glass} className="p-5 flex flex-col gap-2"
+style={{...glass, minHeight: 'auto'}}>
             <p className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>Projects</p>
             <p className="font-display text-3xl font-bold text-white">{siteConfig.projectsCompleted}<span style={{ color: "#00e8ff" }}>+</span></p>
-              <div className="mt-auto pt-3">
+              <div className="mt-3">
                           <MiniTypewriter lines={projectsTaglines} speed={55} pause={2200} />
                           </div>
           </motion.div>
 
-          <motion.div {...fadeUp(0.35)} style={glass} className="p-5 flex flex-col gap-3 min-h-[160px]">
+          <motion.div {...fadeUp(0.35)} style={glass} className="p-5 flex flex-col gap-2"
+style={{...glass, minHeight: 'auto'}}>
             <p className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>Experience</p>
             <p className="font-display text-3xl font-bold text-white">{siteConfig.yearsExperience}<span style={{ color: "#00e8ff" }}>+</span></p>
-            <div className="mt-auto pt-3">
+            <div className="mt-3">
               <MiniTypewriter lines={yearsTaglines} speed={55} pause={2400} />
             </div>
           </motion.div>
