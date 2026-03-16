@@ -23,6 +23,7 @@ export default function AdminGalleryPage() {
   const [form, setForm] = useState<Omit<GalleryItem, "id">>(EMPTY);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const q = query(collection(db, "gallery"), orderBy("order"));
@@ -32,10 +33,11 @@ export default function AdminGalleryPage() {
     return () => unsub();
   }, []);
 
-  function startNew() {
-    setEditing(null);
-    setForm({ ...EMPTY, order: items.length + 1, createdAt: new Date().toISOString() });
-  }
+function startNew() {
+  setEditing(null);
+  setForm({ ...EMPTY, order: items.length + 1, createdAt: new Date().toISOString() });
+  setShowForm(true);
+}
 
   function startEdit(item: GalleryItem) {
     setEditing(item);
@@ -88,7 +90,7 @@ export default function AdminGalleryPage() {
       </div>
 
       {/* Form */}
-      {(editing !== null || form.title !== "" || form.images.length > 0) && (
+      {showForm && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -189,7 +191,7 @@ export default function AdminGalleryPage() {
               {saving ? "Saving..." : "Save"}
             </button>
             <button
-              onClick={() => { setEditing(null); setForm(EMPTY); }}
+              onClick={() => { setEditing(null); setForm(EMPTY); setShowForm(false); }}
               className="px-6 py-2.5 bg-bg-elevated border border-border text-text-secondary font-mono text-sm rounded-btn hover:text-text-primary transition-all"
             >
               Cancel
