@@ -1,15 +1,13 @@
 // ─── Project Types ───────────────────────────────────────────────────────────
-
 export interface ProjectView {
   image: string;
   description: string;
   features: string[];
 }
-
 export interface Project {
   id: string;
   businessName: string;
-  category: string; // "cafe" | "clothing" | "restaurant" | "boutique" | "other"
+  category: string;
   problem: string;
   solution: string;
   result: string;
@@ -24,23 +22,47 @@ export interface Project {
   createdAt: string;
 }
 
-// ─── Contact / Config Types ───────────────────────────────────────────────────
+// ─── Gallery Types ────────────────────────────────────────────────────────────
+export interface GalleryItem {
+  id: string;
+  title: string;
+  category: string;
+  images: string[]; // multiple images supported
+  isPreview: boolean; // true = "Preview" badge, no live link
+  liveUrl?: string;
+  order: number;
+  createdAt: string;
+}
 
+// ─── Testimonial Types ────────────────────────────────────────────────────────
+export interface Testimonial {
+  id: string;
+  clientName: string;
+  businessName: string;
+  businessType: string;
+  text: string; // written review
+  videoUrl?: string; // YouTube or Vimeo embed URL
+  rating: number; // 1-5
+  avatarUrl?: string;
+  order: number;
+  createdAt: string;
+}
+
+// ─── Contact / Config Types ───────────────────────────────────────────────────
 export interface ContactConfig {
   whatsapp: string;
   email: string;
   github: string;
   linkedin: string;
-  whatsappMessage: string; // default pre-filled WA message
+  whatsappMessage: string;
 }
 
 // ─── Bio / Profile Types ──────────────────────────────────────────────────────
-
 export interface SiteConfig {
   name: string;
   title: string;
   bio: string;
-  taglines: string[]; // typewriter lines
+  taglines: string[];
   profileImage: string;
   heroCtaPrimary: string;
   heroCtaSecondary: string;
@@ -50,17 +72,15 @@ export interface SiteConfig {
 }
 
 // ─── Skills Types ─────────────────────────────────────────────────────────────
-
 export interface Skill {
   id: string;
   name: string;
-  category: string; // "frontend" | "backend" | "tools" | "design"
+  category: string;
   icon?: string;
-  level: number; // 1–5
+  level: number;
 }
 
 // ─── Lead / Brief Types ───────────────────────────────────────────────────────
-
 export interface Lead {
   id: string;
   name: string;
@@ -70,42 +90,25 @@ export interface Lead {
   createdAt: string;
   status: "new" | "contacted" | "closed";
 }
-
 export interface BriefData {
-  // Step 1: Business Identity
   businessName?: string;
   businessDescription?: string;
   targetAudience?: string;
-
-  // Step 2: Brand Design
   preferredColors?: string;
   designStyle?: string;
   referenceUrls?: string;
-
-  // Step 3: Pages Needed
   pages?: string[];
-
-  // Step 4: Homepage Sections
   homepageSections?: string[];
-
-  // Step 5: Products / Services
   productsDescription?: string;
   priceRange?: string;
-
-  // Step 6: Dashboard Features
   dashboardFeatures?: string[];
-
-  // Step 7: Integrations
   integrations?: string[];
-
-  // Extra
   additionalNotes?: string;
   budget?: string;
   timeline?: string;
 }
 
 // ─── Admin Auth ───────────────────────────────────────────────────────────────
-
 export interface AdminUser {
   uid: string;
   email: string | null;

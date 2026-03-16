@@ -7,6 +7,8 @@ import { db } from "@/lib/firebase";
 import type { Project } from "@/types";
 import ProjectCard from "@/components/projects/ProjectCard";
 import { DotGridBackground } from "@/components/ui/Backgrounds";
+import GallerySection from "@/components/sections/GallerySection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
 
 const FALLBACK_PROJECTS: Project[] = [
   {
@@ -34,30 +36,6 @@ const FALLBACK_PROJECTS: Project[] = [
     createdAt: "2024-01-01",
   },
   {
-    id: "detox-club-v2",
-    businessName: "The Detox Club v2",
-    category: "cafe",
-    problem: "Redesigned version with improved UX and additional features.",
-    solution: "Rebuilt with enhanced menu system, better mobile experience, and expanded dashboard.",
-    result: "Cleaner design, faster load times, better conversion.",
-    liveUrl: "https://nishancreates.github.io/the-detox-club-02/",
-    githubUrl: "https://nishancreates.github.io/the-detox-club-02/",
-    customerView: {
-      image: "",
-      description: "Redesigned wellness cafe website with improved UX.",
-      features: ["Redesigned menu", "Mobile-first", "Faster performance", "Enhanced gallery"],
-    },
-    adminView: {
-      image: "",
-      description: "Expanded dashboard with more management features.",
-      features: ["Enhanced analytics", "Bulk menu editing", "Image manager", "Export reports"],
-    },
-    techStack: ["Next.js", "Firebase", "TailwindCSS"],
-    featured: false,
-    order: 3,
-    createdAt: "2024-03-01",
-  },
-  {
     id: "bspoke",
     businessName: "BSpoke Clothing",
     category: "clothing",
@@ -80,30 +58,6 @@ const FALLBACK_PROJECTS: Project[] = [
     order: 2,
     createdAt: "2024-02-01",
   },
-  {
-    id: "nishan-cafe",
-    businessName: "Nishan Cafe Demo",
-    category: "cafe",
-    problem: "Demo project showcasing cafe website capabilities.",
-    solution: "Full cafe website with menu, about section, and contact.",
-    result: "Live demo used to show clients what's possible.",
-    liveUrl: "https://nishancreates.github.io/nishan-cafe/",
-    githubUrl: "https://nishancreates.github.io/nishan-cafe/",
-    customerView: {
-      image: "",
-      description: "Clean cafe website demo with menu and contact.",
-      features: ["Menu display", "About section", "Contact form", "Responsive design"],
-    },
-    adminView: {
-      image: "",
-      description: "Basic content management for cafe owners.",
-      features: ["Menu editor", "Contact manager", "Gallery"],
-    },
-    techStack: ["HTML", "CSS", "JavaScript", "Firebase"],
-    featured: false,
-    order: 4,
-    createdAt: "2024-04-01",
-  },
 ];
 
 export default function WorkPage() {
@@ -125,59 +79,78 @@ export default function WorkPage() {
     filter === "all" ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <div className="min-h-screen pt-24 pb-20 max-w-6xl mx-auto px-6">
+    <div className="min-h-screen pt-24 pb-20">
       <DotGridBackground />
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-12"
-      >
-        <p className="font-mono text-xs text-accent-cyan tracking-widest uppercase mb-3">
-          Portfolio
-        </p>
-        <h1 className="font-display text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-          Work that ships.
-        </h1>
-        <p className="text-text-secondary max-w-xl text-lg">
-          Every project includes a customer-facing site and a private owner dashboard.
-          Toggle between views on each card.
-        </p>
-      </motion.div>
+      {/* Projects section */}
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <p className="font-mono text-xs text-accent-cyan tracking-widest uppercase mb-3">
+            Portfolio
+          </p>
+          <h1 className="font-display text-4xl sm:text-5xl font-bold text-text-primary mb-4">
+            Work that ships.
+          </h1>
+          <p className="text-text-secondary max-w-xl text-lg">
+            Every project includes a customer-facing site and a private owner dashboard.
+            Toggle between views on each card.
+          </p>
+        </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="flex flex-wrap gap-2 mb-10"
-      >
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`font-mono text-xs px-4 py-2 rounded-full border transition-all capitalize ${
-              filter === cat
-                ? "bg-accent-cyan text-bg-primary border-accent-cyan font-bold"
-                : "border-border text-text-secondary hover:border-border-strong hover:text-text-primary"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-wrap gap-2 mb-10"
+        >
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`font-mono text-xs px-4 py-2 rounded-full border transition-all capitalize ${
+                filter === cat
+                  ? "bg-accent-cyan text-bg-primary border-accent-cyan font-bold"
+                  : "border-border text-text-secondary hover:border-border-strong hover:text-text-primary"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {filtered.map((project, i) => (
-          <ProjectCard key={project.id} project={project} index={i} />
-        ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {filtered.map((project, i) => (
+            <ProjectCard key={project.id} project={project} index={i} />
+          ))}
+        </div>
+
+        {filtered.length === 0 && (
+          <div className="text-center py-24">
+            <p className="text-text-muted font-mono text-sm">No projects in this category yet.</p>
+          </div>
+        )}
       </div>
 
-      {filtered.length === 0 && (
-        <div className="text-center py-24">
-          <p className="text-text-muted font-mono text-sm">No projects in this category yet.</p>
-        </div>
-      )}
+      {/* Divider */}
+      <div className="max-w-6xl mx-auto px-6 mt-20">
+        <div className="border-t border-border" />
+      </div>
+
+      {/* Gallery section */}
+      <GallerySection />
+
+      {/* Divider */}
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="border-t border-border" />
+      </div>
+
+      {/* Testimonials section */}
+      <TestimonialsSection />
     </div>
   );
 }
