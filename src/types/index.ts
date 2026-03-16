@@ -21,34 +21,28 @@ export interface Project {
   order: number;
   createdAt: string;
 }
-
-// ─── Gallery Types ────────────────────────────────────────────────────────────
 export interface GalleryItem {
   id: string;
   title: string;
   category: string;
-  images: string[]; // multiple images supported
-  isPreview: boolean; // true = "Preview" badge, no live link
+  images: string[];
+  isPreview: boolean;
   liveUrl?: string;
   order: number;
   createdAt: string;
 }
-
-// ─── Testimonial Types ────────────────────────────────────────────────────────
 export interface Testimonial {
   id: string;
   clientName: string;
   businessName: string;
   businessType: string;
-  text: string; // written review
-  videoUrl?: string; // YouTube or Vimeo embed URL
-  rating: number; // 1-5
+  text: string;
+  videoUrl?: string;
+  rating: number;
   avatarUrl?: string;
   order: number;
   createdAt: string;
 }
-
-// ─── Contact / Config Types ───────────────────────────────────────────────────
 export interface ContactConfig {
   whatsapp: string;
   email: string;
@@ -56,13 +50,13 @@ export interface ContactConfig {
   linkedin: string;
   whatsappMessage: string;
 }
-
-// ─── Bio / Profile Types ──────────────────────────────────────────────────────
 export interface SiteConfig {
   name: string;
   title: string;
   bio: string;
   taglines: string[];
+  projectsTaglines: string[];
+  yearsTaglines: string[];
   profileImage: string;
   heroCtaPrimary: string;
   heroCtaSecondary: string;
@@ -70,8 +64,6 @@ export interface SiteConfig {
   yearsExperience: number;
   projectsCompleted: number;
 }
-
-// ─── Skills Types ─────────────────────────────────────────────────────────────
 export interface Skill {
   id: string;
   name: string;
@@ -79,8 +71,6 @@ export interface Skill {
   icon?: string;
   level: number;
 }
-
-// ─── Lead / Brief Types ───────────────────────────────────────────────────────
 export interface Lead {
   id: string;
   name: string;
@@ -107,8 +97,6 @@ export interface BriefData {
   budget?: string;
   timeline?: string;
 }
-
-// ─── Admin Auth ───────────────────────────────────────────────────────────────
 export interface AdminUser {
   uid: string;
   email: string | null;
