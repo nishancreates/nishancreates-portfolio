@@ -46,8 +46,8 @@ export default function AdminGalleryPage() {
     setUploading(true);
     const urls: string[] = [];
     for (let i = 0; i < files.length; i++) {
-      const url = await uploadImage(files[i]);
-      if (url) urls.push(url);
+      const result = await uploadImage(files[i]);
+      if (result?.secure_url) urls.push(result.secure_url);
     }
     setForm((f) => ({ ...f, images: [...f.images, ...urls] }));
     setUploading(false);

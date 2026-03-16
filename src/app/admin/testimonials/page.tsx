@@ -49,8 +49,8 @@ export default function AdminTestimonialsPage() {
 
   async function handleAvatarUpload(file: File) {
     setUploading(true);
-    const url = await uploadImage(file);
-    if (url) setForm((f) => ({ ...f, avatarUrl: url }));
+    const result = await uploadImage(file);
+    if (result?.secure_url) setForm((f) => ({ ...f, avatarUrl: result.secure_url }));
     setUploading(false);
   }
 
