@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import type { BriefData } from "@/types";
 import { generateContactLink } from "@/lib/whatsapp";
 
@@ -73,17 +71,22 @@ export default function BriefPage() {
     setSubmitting(true);
     setError("");
     try {
-      await addDoc(collection(db, "leads"), {
-        name: form.name,
-        whatsapp: form.whatsapp,
-        businessType: form.businessType,
-        briefData: form.brief,
-        status: "new",
-        createdAt: serverTimestamp(),
+      const res = await fetch("/api/submit-brief", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          whatsapp: form.whatsapp,
+          businessType: form.businessType,
+          briefData: form.brief,
+        }),
       });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
       setSubmitted(true);
-    } catch {
-      setError("Something went wrong. Please try WhatsApp instead.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong.";
+      setError(message || "Something went wrong. Please try WhatsApp instead.");
     } finally {
       setSubmitting(false);
     }
