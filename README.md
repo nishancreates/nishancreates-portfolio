@@ -43,6 +43,7 @@
 | **Media** | Cloudinary |
 | **Deployment** | Vercel |
 
+
 ---
 
 ## 🏗️ Project Structure
