@@ -22,7 +22,6 @@
 
 ---
 
-
 ## ✨ What's Inside
 
 - **Hero Section** — Clear value proposition with CTA to start a project
