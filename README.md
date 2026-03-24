@@ -21,6 +21,10 @@
 **Live:** [nishancreates.vercel.app](https://nishancreates.vercel.app/)
 
 ---
+\
+   \   (\__/)
+       (•ㅅ•)
+       / 　 づ
 
 ## ✨ What's Inside
 
